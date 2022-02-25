@@ -22,6 +22,7 @@ services:
         container_name: ${PROJECT_NAME}-php
         build:
             context: docker/php
+            target: ${PROJECT_ENV}
         volumes:
             - ./:/var/www/symfony
             - ./docker/logs/symfony:/var/www/symfony/app/logs
