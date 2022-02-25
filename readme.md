@@ -36,8 +36,8 @@ brew install make
 
 Afin d'initialiser un projet, il est nécessaire de configurer certaines variables utiles à la création des containers dans un fichier `docker/.env`
 
-1. Créer le fichier `.env` à partir du fichier `.env.dist`
-2. Éditer les variables suivantes dans le fichier `.env` :
+1. Créer le fichier `docker/.env` à partir du fichier `docker/.env.dist`
+2. Éditer les variables suivantes dans le fichier `docker/.env` :
 
 | Variable            | Description                                                               | Exemple      |
 |:--------------------|:--------------------------------------------------------------------------|:-------------|
@@ -50,7 +50,7 @@ Afin d'initialiser un projet, il est nécessaire de configurer certaines variabl
 | MYSQL_ROOT_PASSWORD | Mot de passe de l'utilisateur root du container MySql                     | m0t_d3_p422e |             
 | MYSQL_PORT          | Port utilisé par MySQL sur la machine hôte                                | 33060        |
 
-3. Créer le fichier `project.conf` à partir du fichier `project.conf.dist` et le modifier si besoin
+3. Créer le fichier `docker/nginx/project.conf` à partir du fichier `docker/nginx/project.conf.dist` et le modifier si besoin
 4. Lancer la commande `docker network create local` pour créer un réseau docker nommé **local**
 5. À la racine du projet, lancer la commande `make up` démarrer les containers
    (Lancer la commande `make up-dev` pour lancer les containers + le container **Blackfire**)
