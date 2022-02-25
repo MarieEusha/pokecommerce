@@ -1,6 +1,5 @@
 FROM debian:bullseye
 ARG MAX_EXECUTION_TIME
-ARG SERVER_NAME
 ARG PROJECT_NAME
 
 # Installation de Nginx

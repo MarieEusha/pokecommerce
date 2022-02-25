@@ -35,9 +35,10 @@ services:
             context: docker/nginx
             args:
                 MAX_EXECUTION_TIME: ${MAX_EXECUTION_TIME}
+                PROJECT_NAME: ${PROJECT_NAME}
         volumes:
             - ./docker/logs/nginx:/var/log/nginx
-            - ./docker/nginx/symfony.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/project.conf:/etc/nginx/conf.d/default.conf
         volumes_from:
             - php
         depends_on:

@@ -1,6 +1,5 @@
 FROM php:8.1-fpm-alpine as prod
 ARG TIMEZONE
-ARG PROJECT_NAME
 
 # Installation de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
@@ -29,7 +28,7 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | /bin/sh \
 
 WORKDIR /var/www/symfony
 
-FROM symfony as dev
+FROM prod as dev
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && architecture=$(uname -m) \
