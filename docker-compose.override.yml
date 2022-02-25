@@ -1,14 +1,18 @@
 version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
+    blackfire:
+        container_name: ${PROJECT_NAME}-blackfire
+        image: blackfire/blackfire:2
+        environment:
+            BLACKFIRE_LOG_LEVEL: 4
+            BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
+            BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
+            BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
+            BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
+        networks:
+            - local
 
-###> symfony/mailer ###
-  mailer:
-    image: schickling/mailcatcher
-    ports: [1025, 1080]
-###< symfony/mailer ###
+networks:
+    local:
+        name: local

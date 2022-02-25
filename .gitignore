@@ -1,3 +1,10 @@
+###> Custom entries ###
+/.idea
+/docker/.env
+/docker/nginx/project.conf
+/docker/.data/
+/docker/logs/
+###< Custom entries ###
 
 ###> symfony/framework-bundle ###
 /.env.local
