@@ -26,7 +26,8 @@ sudo apt install build-essential
 brew install make
 ```
 - Windows :
-    - Installer le package `make` via [chocolatey](https://chocolatey.org/)
+    - Installer le package `make` via [chocolatey](https://chocolatey.org/) <br>
+  ou
     - Installer une distribution linux en [WSL](https://docs.microsoft.com/fr-fr/windows/wsl/install) et installer le package Linux
 
 (Recommandé) Avoir installé le [docker-hostmanager](https://github.com/iamluc/docker-hostmanager#usage) qui s'occupera de créer des virtualhost locaux pour vos projets
