@@ -1,10 +1,10 @@
 # Setup ————————————————————————————————————————————————————————————————————————
-include ./docker/.env
+include ./docker/.env.local
 SHELL         = sh
 EXEC_PHP      = $(EXEC) php
 SYMFONY       = $(EXEC_PHP) bin/console
 COMPOSER      = $(EXEC) composer
-DOCKER        = docker-compose --env-file=./docker/.env
+DOCKER        = docker-compose --env-file=./docker/.env.local
 EXEC = $(DOCKER) exec php
 .DEFAULT_GOAL = help
 
