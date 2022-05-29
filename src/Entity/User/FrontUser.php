@@ -27,6 +27,8 @@ class FrontUser extends BaseUser
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->offers = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->shippingAddresses = new ArrayCollection();
