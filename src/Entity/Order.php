@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User\BaseUser;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -29,9 +30,9 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private Address $shipingAddress;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'orders')]
+    #[ORM\ManyToOne(targetEntity: BaseUser::class, inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
-    private User $buyer;
+    private BaseUser $buyer;
 
     public function __construct()
     {
@@ -123,18 +124,18 @@ class Order
     }
 
     /**
-     * @return User|null
+     * @return BaseUser|null
      */
-    public function getBuyer(): ?User
+    public function getBuyer(): ?BaseUser
     {
         return $this->buyer;
     }
 
     /**
-     * @param User|null $buyer
+     * @param BaseUser|null $buyer
      * @return $this
      */
-    public function setBuyer(?User $buyer): self
+    public function setBuyer(?BaseUser $buyer): self
     {
         $this->buyer = $buyer;
 

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User\BaseUser;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -23,9 +24,9 @@ class Offer
     #[ORM\Column(type: 'float')]
     private float $price;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'offers')]
+    #[ORM\ManyToOne(targetEntity: BaseUser::class, inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
-    private User $seller;
+    private BaseUser $seller;
 
     public function __construct()
     {
@@ -60,18 +61,18 @@ class Offer
     }
 
     /**
-     * @return User|null
+     * @return BaseUser|null
      */
-    public function getSeller(): ?User
+    public function getSeller(): ?BaseUser
     {
         return $this->seller;
     }
 
     /**
-     * @param User|null $seller
+     * @param BaseUser|null $seller
      * @return $this
      */
-    public function setSeller(?User $seller): self
+    public function setSeller(?BaseUser $seller): self
     {
         $this->seller = $seller;
 
