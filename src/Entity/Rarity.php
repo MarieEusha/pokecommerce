@@ -13,7 +13,7 @@ class Rarity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'uuid')]
     private Uuid $uuid;
 
     #[ORM\Column(type: 'string', length: 255)]
