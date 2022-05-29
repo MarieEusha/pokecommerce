@@ -8,46 +8,58 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column(type: 'string')]
+    private Uuid $uuid;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private $email;
+    private string $email;
 
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    private $password;
+    private string $password;
 
     #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Offer::class)]
-    private $offers;
+    private ArrayCollection $offers;
 
     #[ORM\OneToMany(mappedBy: 'buyer', targetEntity: Order::class)]
-    private $orders;
+    private ArrayCollection $orders;
 
     public function __construct()
     {
+        $this->uuid = Uuid::v4();
         $this->offers = new ArrayCollection();
         $this->orders = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    /**
+     * @return string|null
+     */
+    public function getUuid(): ?string
     {
-        return $this->id;
+        return $this->uuid;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -77,6 +89,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -92,6 +108,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -116,6 +136,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->offers;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function addOffer(Offer $offer): self
     {
         if (!$this->offers->contains($offer)) {
@@ -126,6 +150,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function removeOffer(Offer $offer): self
     {
         if ($this->offers->removeElement($offer)) {
@@ -146,6 +174,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->orders;
     }
 
+    /**
+     * @param Order $order
+     * @return $this
+     */
     public function addOrder(Order $order): self
     {
         if (!$this->orders->contains($order)) {
@@ -156,6 +188,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param Order $order
+     * @return $this
+     */
     public function removeOrder(Order $order): self
     {
         if ($this->orders->removeElement($order)) {

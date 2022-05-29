@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ShinyRepository;
+use App\Repository\GameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: ShinyRepository::class)]
-class Shiny
+#[ORM\Entity(repositoryClass: GameRepository::class)]
+class Game
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,13 +19,12 @@ class Shiny
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy: 'shiny', targetEntity: Card::class)]
-    private ArrayCollection $cards;
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Serie::class)]
+    private ArrayCollection $series;
 
     public function __construct()
     {
-        $this->uuid = Uuid::v4();
-        $this->cards = new ArrayCollection();
+        $this->series = new ArrayCollection();
     }
 
     /**
@@ -56,37 +55,37 @@ class Shiny
     }
 
     /**
-     * @return Collection<int, Card>
+     * @return Collection<int, Serie>
      */
-    public function getCards(): Collection
+    public function getSeries(): Collection
     {
-        return $this->cards;
+        return $this->series;
     }
 
     /**
-     * @param Card $card
+     * @param Serie $series
      * @return $this
      */
-    public function addCard(Card $card): self
+    public function addSeries(Serie $series): self
     {
-        if (!$this->cards->contains($card)) {
-            $this->cards[] = $card;
-            $card->setShiny($this);
+        if (!$this->series->contains($series)) {
+            $this->series[] = $series;
+            $series->setGame($this);
         }
 
         return $this;
     }
 
     /**
-     * @param Card $card
+     * @param Serie $series
      * @return $this
      */
-    public function removeCard(Card $card): self
+    public function removeSeries(Serie $series): self
     {
-        if ($this->cards->removeElement($card)) {
+        if ($this->series->removeElement($series)) {
             // set the owning side to null (unless already changed)
-            if ($card->getShiny() === $this) {
-                $card->setShiny(null);
+            if ($series->getGame() === $this) {
+                $series->setGame(null);
             }
         }
 
