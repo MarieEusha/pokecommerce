@@ -25,7 +25,7 @@ class Offer
     private float $price;
 
     #[ORM\ManyToOne(targetEntity: BaseUser::class, inversedBy: 'offers')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'seller', referencedColumnName: 'uuid',  nullable: false)]
     private BaseUser $seller;
 
     public function __construct()

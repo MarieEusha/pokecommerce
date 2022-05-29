@@ -23,15 +23,15 @@ class Order
     private float $totalAmount;
 
     #[ORM\ManyToOne(targetEntity: Address::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'address', referencedColumnName: 'uuid',  nullable: false)]
     private Address $billingAddress;
 
     #[ORM\ManyToOne(targetEntity: Address::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'address', referencedColumnName: 'uuid',  nullable: false)]
     private Address $shipingAddress;
 
     #[ORM\ManyToOne(targetEntity: BaseUser::class, inversedBy: 'orders')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'buyer', referencedColumnName: 'uuid',  nullable: false)]
     private BaseUser $buyer;
 
     public function __construct()

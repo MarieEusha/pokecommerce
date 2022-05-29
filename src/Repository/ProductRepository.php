@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\TCG;
+use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method TCG|null find($id, $lockMode = null, $lockVersion = null)
- * @method TCG|null findOneBy(array $criteria, array $orderBy = null)
- * @method TCG[]    findAll()
- * @method TCG[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Product|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Product|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Product[]    findAll()
+ * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GameRepository extends ServiceEntityRepository
+class ProductRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TCG::class);
+        parent::__construct($registry, Product::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(TCG $entity, bool $flush = true): void
+    public function add(Product $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class GameRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(TCG $entity, bool $flush = true): void
+    public function remove(Product $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,15 +46,15 @@ class GameRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return TCG[] Returns an array of TCG objects
+    //  * @return Product[] Returns an array of Product objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
+            ->orderBy('p.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -63,10 +63,10 @@ class GameRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?TCG
+    public function findOneBySomeField($value): ?Product
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
