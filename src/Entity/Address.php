@@ -10,7 +10,6 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
 class Address
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'uuid')]

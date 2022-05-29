@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
-class Game
+class TCG
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,9 +28,9 @@ class Game
     }
 
     /**
-     * @return string|null
+     * @return Uuid|null
      */
-    public function getUuid(): ?string
+    public function getUuid(): ?Uuid
     {
         return $this->uuid;
     }

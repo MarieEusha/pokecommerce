@@ -28,9 +28,9 @@ class Serie
     #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Card::class)]
     private ArrayCollection $cards;
 
-    #[ORM\ManyToOne(targetEntity: Game::class, inversedBy: 'series')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Game $game;
+    #[ORM\ManyToOne(targetEntity: TCG::class, inversedBy: 'series')]
+    #[ORM\JoinColumn(name: 'game', referencedColumnName: 'uuid',  nullable: false)]
+    private TCG $game;
 
     public function __construct()
     {
@@ -142,18 +142,18 @@ class Serie
     }
 
     /**
-     * @return Game|null
+     * @return TCG|null
      */
-    public function getGame(): ?Game
+    public function getGame(): ?TCG
     {
         return $this->game;
     }
 
     /**
-     * @param Game|null $game
+     * @param TCG|null $game
      * @return $this
      */
-    public function setGame(?Game $game): self
+    public function setGame(?TCG $game): self
     {
         $this->game = $game;
 
