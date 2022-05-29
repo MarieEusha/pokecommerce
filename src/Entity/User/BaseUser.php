@@ -29,17 +29,10 @@ class BaseUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private string $password;
 
-    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Offer::class)]
-    private ArrayCollection $offers;
-
-    #[ORM\OneToMany(mappedBy: 'buyer', targetEntity: Order::class)]
-    private ArrayCollection $orders;
 
     public function __construct()
     {
         $this->uuid = Uuid::v4();
-        $this->offers = new ArrayCollection();
-        $this->orders = new ArrayCollection();
     }
 
     /**
@@ -130,79 +123,4 @@ class BaseUser implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, Offer>
-     */
-    public function getOffers(): Collection
-    {
-        return $this->offers;
-    }
-
-    /**
-     * @param Offer $offer
-     * @return $this
-     */
-    public function addOffer(Offer $offer): self
-    {
-        if (!$this->offers->contains($offer)) {
-            $this->offers[] = $offer;
-            $offer->setSeller($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Offer $offer
-     * @return $this
-     */
-    public function removeOffer(Offer $offer): self
-    {
-        if ($this->offers->removeElement($offer)) {
-            // set the owning side to null (unless already changed)
-            if ($offer->getSeller() === $this) {
-                $offer->setSeller(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Order>
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    /**
-     * @param Order $order
-     * @return $this
-     */
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->setBuyer($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Order $order
-     * @return $this
-     */
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->removeElement($order)) {
-            // set the owning side to null (unless already changed)
-            if ($order->getBuyer() === $this) {
-                $order->setBuyer(null);
-            }
-        }
-
-        return $this;
-    }
 }
